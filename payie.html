@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>UPI Payment</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    padding:20px;
+}
+
+.card{
+    width:100%;
+    max-width:450px;
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+h1{
+    margin-bottom:15px;
+}
+
+.amount{
+    font-size:32px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.upi{
+    color:#666;
+    margin-bottom:25px;
+}
+
+.pay-btn{
+    display:block;
+    width:100%;
+    padding:18px;
+    background:#16a34a;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:600;
+}
+
+.pay-btn:active{
+    transform:scale(.98);
+}
+
+.note{
+    margin-top:20px;
+    color:#777;
+    font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+    <h1>UPI Payment</h1>
+
+    <div class="amount">
+        ₹100
+    </div>
+
+    <div class="upi">
+        merchant@upi
+    </div>
+
+    <a
+        class="pay-btn"
+        href="upi://pay?pa=merchant@upi&pn=Merchant&am=100&cu=INR"
+    >
+        Pay with UPI
+    </a>
+
+    <div class="note">
+        Tap the button to open Google Pay, PhonePe, Paytm or BHIM.
+    </div>
+
+</div>
+
+</body>
+</html>
