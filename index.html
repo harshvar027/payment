@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>UPI Payment</title>
 
 <style>
@@ -11,7 +10,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Segoe UI,Arial,sans-serif;
+    font-family:Segoe UI,sans-serif;
 }
 
 body{
@@ -20,54 +19,63 @@ body{
     justify-content:center;
     align-items:center;
     background:linear-gradient(135deg,#0f172a,#1e293b);
-    padding:20px;
 }
 
 .card{
-    width:100%;
-    max-width:450px;
+    width:450px;
     background:white;
     border-radius:20px;
     padding:30px;
-    text-align:center;
     box-shadow:0 20px 40px rgba(0,0,0,.2);
 }
 
 h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
     margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#16a34a;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.pay-btn{
+    display:none;
+    margin-top:20px;
+    text-align:center;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    border-radius:10px;
+}
+
+.details{
+    margin-top:20px;
+    text-align:center;
 }
 
 .amount{
-    font-size:32px;
+    font-size:28px;
     font-weight:bold;
-    margin:20px 0;
 }
 
 .upi{
     color:#666;
-    margin-bottom:25px;
-}
-
-.pay-btn{
-    display:block;
-    width:100%;
-    padding:18px;
-    background:#16a34a;
-    color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-size:18px;
-    font-weight:600;
-}
-
-.pay-btn:active{
-    transform:scale(.98);
-}
-
-.note{
-    margin-top:20px;
-    color:#777;
-    font-size:14px;
 }
 </style>
 </head>
@@ -77,26 +85,68 @@ h1{
 
     <h1>UPI Payment</h1>
 
-    <div class="amount">
-        ₹100
-    </div>
+    <input
+        type="text"
+        id="upi"
+        placeholder="Receiver UPI ID"
+    >
 
-    <div class="upi">
-        merchant@upi
+    <input
+        type="number"
+        id="amount"
+        placeholder="Amount"
+    >
+
+    <button onclick="createPayment()">
+        Create Payment
+    </button>
+
+    <div class="details">
+        <div class="amount" id="amountDisplay"></div>
+        <div class="upi" id="upiDisplay"></div>
     </div>
 
     <a
+        id="payBtn"
         class="pay-btn"
-        href="upi://pay?pa=merchant@upi&pn=Merchant&am=100&cu=INR"
     >
         Pay with UPI
     </a>
 
-    <div class="note">
-        Tap the button to open Google Pay, PhonePe, Paytm or BHIM.
-    </div>
-
 </div>
+
+<script>
+
+function createPayment(){
+
+    const upi =
+        document.getElementById("upi").value.trim();
+
+    const amount =
+        document.getElementById("amount").value.trim();
+
+    if(!upi || !amount){
+        alert("Enter UPI ID and Amount");
+        return;
+    }
+
+    const upiLink =
+    `upi://pay?pa=${encodeURIComponent(upi)}&pn=Merchant&am=${amount}&cu=INR`;
+
+    document.getElementById("amountDisplay")
+        .innerText = "₹" + amount;
+
+    document.getElementById("upiDisplay")
+        .innerText = upi;
+
+    const payBtn =
+        document.getElementById("payBtn");
+
+    payBtn.href = upiLink;
+    payBtn.style.display = "block";
+}
+
+</script>
 
 </body>
 </html>
